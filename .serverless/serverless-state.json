@@ -1,0 +1,1431 @@
+{
+  "service": {
+    "service": "student-service",
+    "serviceObject": {
+      "name": "student-service"
+    },
+    "provider": {
+      "name": "aws",
+      "runtime": "python3.11",
+      "stage": "dev",
+      "region": "us-east-1",
+      "environment": {
+        "STUDENTS_TABLE": "student-service-dev-students",
+        "STAGE": "dev"
+      },
+      "iam": {
+        "role": "arn:aws:iam::058264290152:role/LabRole"
+      },
+      "versionFunctions": true,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "CreateStudentLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/student-service-dev-createStudent"
+            }
+          },
+          "GetStudentLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/student-service-dev-getStudent"
+            }
+          },
+          "ListStudentsLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/student-service-dev-listStudents"
+            }
+          },
+          "UpdateStudentLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/student-service-dev-updateStudent"
+            }
+          },
+          "DeleteStudentLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/student-service-dev-deleteStudent"
+            }
+          },
+          "GetStudentByEmailLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/student-service-dev-getStudentByEmail"
+            }
+          },
+          "CreateStudentLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-12d30920-8b23",
+                "S3Key": "serverless/student-service/dev/1764228992876-2025-11-27T07:36:32.876Z/student-service.zip"
+              },
+              "Handler": "handlers/student_handler.create_student",
+              "Runtime": "python3.11",
+              "FunctionName": "student-service-dev-createStudent",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "STUDENTS_TABLE": "student-service-dev-students",
+                  "STAGE": "dev"
+                }
+              },
+              "Role": "arn:aws:iam::058264290152:role/LabRole"
+            },
+            "DependsOn": [
+              "CreateStudentLogGroup"
+            ]
+          },
+          "GetStudentLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-12d30920-8b23",
+                "S3Key": "serverless/student-service/dev/1764228992876-2025-11-27T07:36:32.876Z/student-service.zip"
+              },
+              "Handler": "handlers/student_handler.get_student",
+              "Runtime": "python3.11",
+              "FunctionName": "student-service-dev-getStudent",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "STUDENTS_TABLE": "student-service-dev-students",
+                  "STAGE": "dev"
+                }
+              },
+              "Role": "arn:aws:iam::058264290152:role/LabRole"
+            },
+            "DependsOn": [
+              "GetStudentLogGroup"
+            ]
+          },
+          "ListStudentsLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-12d30920-8b23",
+                "S3Key": "serverless/student-service/dev/1764228992876-2025-11-27T07:36:32.876Z/student-service.zip"
+              },
+              "Handler": "handlers/student_handler.list_students",
+              "Runtime": "python3.11",
+              "FunctionName": "student-service-dev-listStudents",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "STUDENTS_TABLE": "student-service-dev-students",
+                  "STAGE": "dev"
+                }
+              },
+              "Role": "arn:aws:iam::058264290152:role/LabRole"
+            },
+            "DependsOn": [
+              "ListStudentsLogGroup"
+            ]
+          },
+          "UpdateStudentLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-12d30920-8b23",
+                "S3Key": "serverless/student-service/dev/1764228992876-2025-11-27T07:36:32.876Z/student-service.zip"
+              },
+              "Handler": "handlers/student_handler.update_student",
+              "Runtime": "python3.11",
+              "FunctionName": "student-service-dev-updateStudent",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "STUDENTS_TABLE": "student-service-dev-students",
+                  "STAGE": "dev"
+                }
+              },
+              "Role": "arn:aws:iam::058264290152:role/LabRole"
+            },
+            "DependsOn": [
+              "UpdateStudentLogGroup"
+            ]
+          },
+          "DeleteStudentLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-12d30920-8b23",
+                "S3Key": "serverless/student-service/dev/1764228992876-2025-11-27T07:36:32.876Z/student-service.zip"
+              },
+              "Handler": "handlers/student_handler.delete_student",
+              "Runtime": "python3.11",
+              "FunctionName": "student-service-dev-deleteStudent",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "STUDENTS_TABLE": "student-service-dev-students",
+                  "STAGE": "dev"
+                }
+              },
+              "Role": "arn:aws:iam::058264290152:role/LabRole"
+            },
+            "DependsOn": [
+              "DeleteStudentLogGroup"
+            ]
+          },
+          "GetStudentByEmailLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-12d30920-8b23",
+                "S3Key": "serverless/student-service/dev/1764228992876-2025-11-27T07:36:32.876Z/student-service.zip"
+              },
+              "Handler": "handlers/student_handler.get_student_by_email",
+              "Runtime": "python3.11",
+              "FunctionName": "student-service-dev-getStudentByEmail",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "STUDENTS_TABLE": "student-service-dev-students",
+                  "STAGE": "dev"
+                }
+              },
+              "Role": "arn:aws:iam::058264290152:role/LabRole"
+            },
+            "DependsOn": [
+              "GetStudentByEmailLogGroup"
+            ]
+          },
+          "CreateStudentLambdaVersionnZ4nkcMHmKouLlCfmhFT5uhHZp2p0GuHgEMTSyyM6Y": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "CreateStudentLambdaFunction"
+              },
+              "CodeSha256": "q9Zpunl+It8wUAn5WX89O/mfbh65teuOss9wBHAecJA="
+            }
+          },
+          "GetStudentLambdaVersionCZ6welOLMIZzxpsfNPPRTc0e7vKLUGkQkEuj571Dj14": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "GetStudentLambdaFunction"
+              },
+              "CodeSha256": "q9Zpunl+It8wUAn5WX89O/mfbh65teuOss9wBHAecJA="
+            }
+          },
+          "ListStudentsLambdaVersionHMAVU2OHul9Cj8ac2jRgyDSp5a43zkfPl8yWBExtqOw": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "ListStudentsLambdaFunction"
+              },
+              "CodeSha256": "q9Zpunl+It8wUAn5WX89O/mfbh65teuOss9wBHAecJA="
+            }
+          },
+          "UpdateStudentLambdaVersion44rmCbCa0EB8gcKbmyiXesFLDg2YAlrPCI2ycidlYY": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "UpdateStudentLambdaFunction"
+              },
+              "CodeSha256": "q9Zpunl+It8wUAn5WX89O/mfbh65teuOss9wBHAecJA="
+            }
+          },
+          "DeleteStudentLambdaVersionZbnwfzkAGIzOulKuR8dOkH7mlOxxFYrfqUYf33SMA4": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "DeleteStudentLambdaFunction"
+              },
+              "CodeSha256": "q9Zpunl+It8wUAn5WX89O/mfbh65teuOss9wBHAecJA="
+            }
+          },
+          "GetStudentByEmailLambdaVersionqYhuMVmpu6t62YCOFbYUUgLds5GzA30WyBMGdpfGk": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "GetStudentByEmailLambdaFunction"
+              },
+              "CodeSha256": "q9Zpunl+It8wUAn5WX89O/mfbh65teuOss9wBHAecJA="
+            }
+          },
+          "ApiGatewayRestApi": {
+            "Type": "AWS::ApiGateway::RestApi",
+            "Properties": {
+              "Name": "dev-student-service",
+              "EndpointConfiguration": {
+                "Types": [
+                  "EDGE"
+                ]
+              },
+              "Policy": ""
+            }
+          },
+          "ApiGatewayResourceStudents": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Fn::GetAtt": [
+                  "ApiGatewayRestApi",
+                  "RootResourceId"
+                ]
+              },
+              "PathPart": "students",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceStudentsIdVar": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceStudents"
+              },
+              "PathPart": "{id}",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceStudentsEmail": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceStudents"
+              },
+              "PathPart": "email",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceStudentsEmailEmailVar": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceStudentsEmail"
+              },
+              "PathPart": "{email}",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodStudentsOptions": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "AuthorizationType": "NONE",
+              "HttpMethod": "OPTIONS",
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true,
+                    "method.response.header.Access-Control-Allow-Headers": true,
+                    "method.response.header.Access-Control-Allow-Methods": true
+                  },
+                  "ResponseModels": {}
+                }
+              ],
+              "RequestParameters": {},
+              "Integration": {
+                "Type": "MOCK",
+                "RequestTemplates": {
+                  "application/json": "{statusCode:200}"
+                },
+                "ContentHandling": "CONVERT_TO_TEXT",
+                "IntegrationResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'",
+                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,POST'"
+                    },
+                    "ResponseTemplates": {
+                      "application/json": ""
+                    }
+                  }
+                ]
+              },
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceStudents"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodStudentsIdVarOptions": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "AuthorizationType": "NONE",
+              "HttpMethod": "OPTIONS",
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true,
+                    "method.response.header.Access-Control-Allow-Headers": true,
+                    "method.response.header.Access-Control-Allow-Methods": true
+                  },
+                  "ResponseModels": {}
+                }
+              ],
+              "RequestParameters": {},
+              "Integration": {
+                "Type": "MOCK",
+                "RequestTemplates": {
+                  "application/json": "{statusCode:200}"
+                },
+                "ContentHandling": "CONVERT_TO_TEXT",
+                "IntegrationResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'",
+                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,DELETE,PUT,GET'"
+                    },
+                    "ResponseTemplates": {
+                      "application/json": ""
+                    }
+                  }
+                ]
+              },
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceStudentsIdVar"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodStudentsEmailEmailVarOptions": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "AuthorizationType": "NONE",
+              "HttpMethod": "OPTIONS",
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true,
+                    "method.response.header.Access-Control-Allow-Headers": true,
+                    "method.response.header.Access-Control-Allow-Methods": true
+                  },
+                  "ResponseModels": {}
+                }
+              ],
+              "RequestParameters": {},
+              "Integration": {
+                "Type": "MOCK",
+                "RequestTemplates": {
+                  "application/json": "{statusCode:200}"
+                },
+                "ContentHandling": "CONVERT_TO_TEXT",
+                "IntegrationResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'",
+                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
+                    },
+                    "ResponseTemplates": {
+                      "application/json": ""
+                    }
+                  }
+                ]
+              },
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceStudentsEmailEmailVar"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodStudentsPost": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "POST",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceStudents"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "CreateStudentLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "CreateStudentLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayMethodStudentsIdVarGet": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "GET",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceStudentsIdVar"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "GetStudentLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "GetStudentLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayMethodStudentsGet": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "GET",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceStudents"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "ListStudentsLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "ListStudentsLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayMethodStudentsIdVarPut": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "PUT",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceStudentsIdVar"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "UpdateStudentLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "UpdateStudentLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayMethodStudentsIdVarDelete": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "DELETE",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceStudentsIdVar"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "DeleteStudentLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "DeleteStudentLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayMethodStudentsEmailEmailVarGet": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "GET",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceStudentsEmailEmailVar"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "GetStudentByEmailLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "GetStudentByEmailLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayDeployment1764228987374": {
+            "Type": "AWS::ApiGateway::Deployment",
+            "Properties": {
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "StageName": "dev"
+            },
+            "DependsOn": [
+              "ApiGatewayMethodStudentsOptions",
+              "ApiGatewayMethodStudentsIdVarOptions",
+              "ApiGatewayMethodStudentsEmailEmailVarOptions",
+              "ApiGatewayMethodStudentsPost",
+              "ApiGatewayMethodStudentsIdVarGet",
+              "ApiGatewayMethodStudentsGet",
+              "ApiGatewayMethodStudentsIdVarPut",
+              "ApiGatewayMethodStudentsIdVarDelete",
+              "ApiGatewayMethodStudentsEmailEmailVarGet"
+            ]
+          },
+          "CreateStudentLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "CreateStudentLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "GetStudentLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "GetStudentLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "ListStudentsLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "ListStudentsLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "UpdateStudentLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "UpdateStudentLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "DeleteStudentLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "DeleteStudentLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "GetStudentByEmailLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "GetStudentByEmailLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "StudentsTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "student-service-dev-students",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "email",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "id",
+                  "KeyType": "HASH"
+                }
+              ],
+              "GlobalSecondaryIndexes": [
+                {
+                  "IndexName": "EmailIndex",
+                  "KeySchema": [
+                    {
+                      "AttributeName": "email",
+                      "KeyType": "HASH"
+                    }
+                  ],
+                  "Projection": {
+                    "ProjectionType": "ALL"
+                  },
+                  "ProvisionedThroughput": {
+                    "ReadCapacityUnits": 1,
+                    "WriteCapacityUnits": 1
+                  }
+                }
+              ],
+              "ProvisionedThroughput": {
+                "ReadCapacityUnits": 1,
+                "WriteCapacityUnits": 1
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": "serverless-framework-deployments-us-east-1-12d30920-8b23",
+            "Export": {
+              "Name": "sls-student-service-dev-ServerlessDeploymentBucketName"
+            }
+          },
+          "CreateStudentLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "CreateStudentLambdaVersionnZ4nkcMHmKouLlCfmhFT5uhHZp2p0GuHgEMTSyyM6Y"
+            },
+            "Export": {
+              "Name": "sls-student-service-dev-CreateStudentLambdaFunctionQualifiedArn"
+            }
+          },
+          "GetStudentLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "GetStudentLambdaVersionCZ6welOLMIZzxpsfNPPRTc0e7vKLUGkQkEuj571Dj14"
+            },
+            "Export": {
+              "Name": "sls-student-service-dev-GetStudentLambdaFunctionQualifiedArn"
+            }
+          },
+          "ListStudentsLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "ListStudentsLambdaVersionHMAVU2OHul9Cj8ac2jRgyDSp5a43zkfPl8yWBExtqOw"
+            },
+            "Export": {
+              "Name": "sls-student-service-dev-ListStudentsLambdaFunctionQualifiedArn"
+            }
+          },
+          "UpdateStudentLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "UpdateStudentLambdaVersion44rmCbCa0EB8gcKbmyiXesFLDg2YAlrPCI2ycidlYY"
+            },
+            "Export": {
+              "Name": "sls-student-service-dev-UpdateStudentLambdaFunctionQualifiedArn"
+            }
+          },
+          "DeleteStudentLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "DeleteStudentLambdaVersionZbnwfzkAGIzOulKuR8dOkH7mlOxxFYrfqUYf33SMA4"
+            },
+            "Export": {
+              "Name": "sls-student-service-dev-DeleteStudentLambdaFunctionQualifiedArn"
+            }
+          },
+          "GetStudentByEmailLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "GetStudentByEmailLambdaVersionqYhuMVmpu6t62YCOFbYUUgLds5GzA30WyBMGdpfGk"
+            },
+            "Export": {
+              "Name": "sls-student-service-dev-GetStudentByEmailLambdaFunctionQualifiedArn"
+            }
+          },
+          "ServiceEndpoint": {
+            "Description": "URL of the service endpoint",
+            "Value": {
+              "Fn::Join": [
+                "",
+                [
+                  "https://",
+                  {
+                    "Ref": "ApiGatewayRestApi"
+                  },
+                  ".execute-api.",
+                  {
+                    "Ref": "AWS::Region"
+                  },
+                  ".",
+                  {
+                    "Ref": "AWS::URLSuffix"
+                  },
+                  "/dev"
+                ]
+              ]
+            },
+            "Export": {
+              "Name": "sls-student-service-dev-ServiceEndpoint"
+            }
+          }
+        }
+      },
+      "vpc": {}
+    },
+    "custom": {
+      "pythonRequirements": {
+        "dockerizePip": false
+      }
+    },
+    "pluginsData": {},
+    "functions": {
+      "createStudent": {
+        "handler": "handlers/student_handler.create_student",
+        "events": [
+          {
+            "http": {
+              "path": "students",
+              "method": "post",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "POST"
+                ],
+                "headers": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent",
+                  "X-Amzn-Trace-Id"
+                ],
+                "allowCredentials": false
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "student-service-dev-createStudent",
+        "module": ".",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "python3.11",
+        "vpc": {},
+        "versionLogicalId": "CreateStudentLambdaVersionnZ4nkcMHmKouLlCfmhFT5uhHZp2p0GuHgEMTSyyM6Y"
+      },
+      "getStudent": {
+        "handler": "handlers/student_handler.get_student",
+        "events": [
+          {
+            "http": {
+              "path": "students/{id}",
+              "method": "get",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "GET"
+                ],
+                "headers": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent",
+                  "X-Amzn-Trace-Id"
+                ],
+                "allowCredentials": false
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "student-service-dev-getStudent",
+        "module": ".",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "python3.11",
+        "vpc": {},
+        "versionLogicalId": "GetStudentLambdaVersionCZ6welOLMIZzxpsfNPPRTc0e7vKLUGkQkEuj571Dj14"
+      },
+      "listStudents": {
+        "handler": "handlers/student_handler.list_students",
+        "events": [
+          {
+            "http": {
+              "path": "students",
+              "method": "get",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "GET"
+                ],
+                "headers": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent",
+                  "X-Amzn-Trace-Id"
+                ],
+                "allowCredentials": false
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "student-service-dev-listStudents",
+        "module": ".",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "python3.11",
+        "vpc": {},
+        "versionLogicalId": "ListStudentsLambdaVersionHMAVU2OHul9Cj8ac2jRgyDSp5a43zkfPl8yWBExtqOw"
+      },
+      "updateStudent": {
+        "handler": "handlers/student_handler.update_student",
+        "events": [
+          {
+            "http": {
+              "path": "students/{id}",
+              "method": "put",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "PUT"
+                ],
+                "headers": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent",
+                  "X-Amzn-Trace-Id"
+                ],
+                "allowCredentials": false
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "student-service-dev-updateStudent",
+        "module": ".",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "python3.11",
+        "vpc": {},
+        "versionLogicalId": "UpdateStudentLambdaVersion44rmCbCa0EB8gcKbmyiXesFLDg2YAlrPCI2ycidlYY"
+      },
+      "deleteStudent": {
+        "handler": "handlers/student_handler.delete_student",
+        "events": [
+          {
+            "http": {
+              "path": "students/{id}",
+              "method": "delete",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "DELETE"
+                ],
+                "headers": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent",
+                  "X-Amzn-Trace-Id"
+                ],
+                "allowCredentials": false
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "student-service-dev-deleteStudent",
+        "module": ".",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "python3.11",
+        "vpc": {},
+        "versionLogicalId": "DeleteStudentLambdaVersionZbnwfzkAGIzOulKuR8dOkH7mlOxxFYrfqUYf33SMA4"
+      },
+      "getStudentByEmail": {
+        "handler": "handlers/student_handler.get_student_by_email",
+        "events": [
+          {
+            "http": {
+              "path": "students/email/{email}",
+              "method": "get",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "GET"
+                ],
+                "headers": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent",
+                  "X-Amzn-Trace-Id"
+                ],
+                "allowCredentials": false
+              },
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "student-service-dev-getStudentByEmail",
+        "module": ".",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "python3.11",
+        "vpc": {},
+        "versionLogicalId": "GetStudentByEmailLambdaVersionqYhuMVmpu6t62YCOFbYUUgLds5GzA30WyBMGdpfGk"
+      }
+    },
+    "resources": {
+      "Resources": {
+        "StudentsTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "Properties": {
+            "TableName": "student-service-dev-students",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "id",
+                "AttributeType": "S"
+              },
+              {
+                "AttributeName": "email",
+                "AttributeType": "S"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+              }
+            ],
+            "GlobalSecondaryIndexes": [
+              {
+                "IndexName": "EmailIndex",
+                "KeySchema": [
+                  {
+                    "AttributeName": "email",
+                    "KeyType": "HASH"
+                  }
+                ],
+                "Projection": {
+                  "ProjectionType": "ALL"
+                },
+                "ProvisionedThroughput": {
+                  "ReadCapacityUnits": 1,
+                  "WriteCapacityUnits": 1
+                }
+              }
+            ],
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 1,
+              "WriteCapacityUnits": 1
+            }
+          }
+        }
+      },
+      "Outputs": {}
+    },
+    "configValidationMode": "warn",
+    "serviceFilename": "serverless",
+    "initialServerlessConfig": {
+      "service": "student-service",
+      "provider": {
+        "$ref": "$[\"service\"][\"provider\"]"
+      },
+      "functions": {
+        "$ref": "$[\"service\"][\"functions\"]"
+      },
+      "resources": {
+        "$ref": "$[\"service\"][\"resources\"]"
+      },
+      "custom": {
+        "$ref": "$[\"service\"][\"custom\"]"
+      },
+      "package": {
+        "patterns": [
+          "!.venv/**",
+          "!.idea/**"
+        ],
+        "artifactsS3KeyDirname": "serverless/student-service/dev/code-artifacts",
+        "deploymentBucket": "serverless-framework-deployments-us-east-1-12d30920-8b23",
+        "artifact": "C:\\Users\\mayko\\Desktop\\2025-2\\AS\\demo\\.serverless\\student-service.zip",
+        "artifactDirectoryName": "serverless/student-service/dev/1764228992876-2025-11-27T07:36:32.876Z"
+      }
+    },
+    "appId": null,
+    "orgId": null,
+    "layers": {},
+    "artifact": "C:\\Users\\mayko\\Desktop\\2025-2\\AS\\demo\\.serverless\\student-service.zip"
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/student-service/dev/1764228992876-2025-11-27T07:36:32.876Z",
+    "artifact": "student-service.zip"
+  }
+}

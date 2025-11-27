@@ -1,0 +1,100 @@
+service: student-service
+
+provider:
+  name: aws
+  runtime: python3.11
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+
+  environment:
+    STUDENTS_TABLE: ${self:service}-${self:provider.stage}-students
+    STAGE: ${self:provider.stage}
+
+  iam:
+    role: arn:aws:iam::058264290152:role/LabRole
+
+functions:
+  createStudent:
+    handler: handlers/student_handler.create_student
+    events:
+      - http:
+          path: students
+          method: post
+          cors: true
+
+  getStudent:
+    handler: handlers/student_handler.get_student
+    events:
+      - http:
+          path: students/{id}
+          method: get
+          cors: true
+
+  listStudents:
+    handler: handlers/student_handler.list_students
+    events:
+      - http:
+          path: students
+          method: get
+          cors: true
+
+  updateStudent:
+    handler: handlers/student_handler.update_student
+    events:
+      - http:
+          path: students/{id}
+          method: put
+          cors: true
+
+  deleteStudent:
+    handler: handlers/student_handler.delete_student
+    events:
+      - http:
+          path: students/{id}
+          method: delete
+          cors: true
+
+  getStudentByEmail:
+    handler: handlers/student_handler.get_student_by_email
+    events:
+      - http:
+          path: students/email/{email}
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    StudentsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.STUDENTS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: EmailIndex
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+custom:
+  pythonRequirements:
+    dockerizePip: false
+
+package:
+  patterns:
+    - '!.venv/**'
+    - '!.idea/**'
