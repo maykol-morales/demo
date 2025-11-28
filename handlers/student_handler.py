@@ -4,7 +4,7 @@ from typing import Any
 
 from models.student import Student
 from utils.response_helper import (bad_request_response, created_response, not_found_response, server_error_response, success_response)
-from utils.student_repository import StudentRepository
+from repositories.student_repository import StudentRepository
 
 repository = StudentRepository()
 

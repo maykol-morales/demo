@@ -1,4 +1,4 @@
-service: student-service
+service: demo
 
 provider:
   name: aws
@@ -8,6 +8,15 @@ provider:
 
   environment:
     STUDENTS_TABLE: ${self:service}-${self:provider.stage}-students
+    INSTRUCTORS_TABLE: ${self:service}-${self:provider.stage}-instructors
+
+    ITEMS_TABLE: ${self:service}-${self:provider.stage}-items
+    BOARDS_TABLE: ${self:service}-${self:provider.stage}-boards
+    COURSES_TABLE: ${self:service}-${self:provider.stage}-courses
+    SESSIONS_TABLE: ${self:service}-${self:provider.stage}-sessions
+
+    DOCUMENTS_BUCKET: ${self:service}-${self:provider.stage}-documents
+
     STAGE: ${self:provider.stage}
 
   iam:
@@ -62,6 +71,254 @@ functions:
           method: get
           cors: true
 
+  createInstructor:
+    handler: handlers/instructor_handler.create_instructor
+    events:
+      - http:
+          path: instructors
+          method: post
+          cors: true
+
+  getInstructor:
+    handler: handlers/instructor_handler.get_instructor
+    events:
+      - http:
+          path: instructors/{id}
+          method: get
+          cors: true
+
+  listInstructors:
+    handler: handlers/instructor_handler.list_instructors
+    events:
+      - http:
+          path: instructors
+          method: get
+          cors: true
+
+  updateInstructor:
+    handler: handlers/instructor_handler.update_instructor
+    events:
+      - http:
+          path: instructors/{id}
+          method: put
+          cors: true
+
+  deleteInstructor:
+    handler: handlers/instructor_handler.delete_instructor
+    events:
+      - http:
+          path: instructors/{id}
+          method: delete
+          cors: true
+
+  getInstructorByEmail:
+    handler: handlers/instructor_handler.get_instructor_by_email
+    events:
+      - http:
+          path: instructors/email/{email}
+          method: get
+          cors: true
+
+  createCourse:
+    handler: handlers/course_handler.create_course
+    events:
+      - http:
+          path: courses
+          method: post
+          cors: true
+
+  getCourse:
+    handler: handlers/course_handler.get_course
+    events:
+      - http:
+          path: courses/{id}
+          method: get
+          cors: true
+
+  listCourses:
+    handler: handlers/course_handler.list_courses
+    events:
+      - http:
+          path: courses
+          method: get
+          cors: true
+
+  getCoursesByInstructor:
+    handler: handlers/course_handler.get_courses_by_instructor
+    events:
+      - http:
+          path: courses/instructor/{instructor_id}
+          method: get
+          cors: true
+
+  updateCourse:
+    handler: handlers/course_handler.update_course
+    events:
+      - http:
+          path: courses/{id}
+          method: put
+          cors: true
+
+  deleteCourse:
+    handler: handlers/course_handler.delete_course
+    events:
+      - http:
+          path: courses/{id}
+          method: delete
+          cors: true
+
+  createBoard:
+    handler: handlers/board_handler.create_board
+    events:
+      - http:
+          path: boards
+          method: post
+          cors: true
+
+  getBoard:
+    handler: handlers/board_handler.get_board
+    events:
+      - http:
+          path: boards/{id}
+          method: get
+          cors: true
+
+  listBoards:
+    handler: handlers/board_handler.list_boards
+    events:
+      - http:
+          path: boards
+          method: get
+          cors: true
+
+  updateBoard:
+    handler: handlers/board_handler.update_board
+    events:
+      - http:
+          path: boards/{id}
+          method: put
+          cors: true
+
+  deleteBoard:
+    handler: handlers/board_handler.delete_board
+    events:
+      - http:
+          path: boards/{id}
+          method: delete
+          cors: true
+
+  createSession:
+    handler: handlers/session_handler.create_session
+    events:
+      - http:
+          path: sessions
+          method: post
+          cors: true
+
+  getSession:
+    handler: handlers/session_handler.get_session
+    events:
+      - http:
+          path: sessions/{id}
+          method: get
+          cors: true
+
+  listSessions:
+    handler: handlers/session_handler.list_sessions
+    events:
+      - http:
+          path: sessions
+          method: get
+          cors: true
+
+  getSessionsByCourse:
+    handler: handlers/session_handler.get_sessions_by_course
+    events:
+      - http:
+          path: sessions/course/{course_id}
+          method: get
+          cors: true
+
+  getSessionsByBoard:
+    handler: handlers/session_handler.get_sessions_by_board
+    events:
+      - http:
+          path: sessions/board/{board_id}
+          method: get
+          cors: true
+
+  updateSession:
+    handler: handlers/session_handler.update_session
+    events:
+      - http:
+          path: sessions/{id}
+          method: put
+          cors: true
+
+  deleteSession:
+    handler: handlers/session_handler.delete_session
+    events:
+      - http:
+          path: sessions/{id}
+          method: delete
+          cors: true
+
+  createItem:
+    handler: handlers/item_handler.create_item
+    events:
+      - http:
+          path: items
+          method: post
+          cors: true
+
+  getItem:
+    handler: handlers/item_handler.get_item
+    events:
+      - http:
+          path: items/{id}
+          method: get
+          cors: true
+
+  listItems:
+    handler: handlers/item_handler.list_items
+    events:
+      - http:
+          path: items
+          method: get
+          cors: true
+
+  getItemsByBoard:
+    handler: handlers/item_handler.get_items_by_board
+    events:
+      - http:
+          path: items/board/{board_id}
+          method: get
+          cors: true
+
+  updateItem:
+    handler: handlers/item_handler.update_item
+    events:
+      - http:
+          path: items/{id}
+          method: put
+          cors: true
+
+  deleteItem:
+    handler: handlers/item_handler.delete_item
+    events:
+      - http:
+          path: items/{id}
+          method: delete
+          cors: true
+
+  getUploadUrl:
+    handler: handlers/item_handler.get_upload_url
+    events:
+      - http:
+          path: items/upload-url
+          method: post
+          cors: true
+
 resources:
   Resources:
     StudentsTable:
@@ -83,12 +340,129 @@ resources:
                 KeyType: HASH
             Projection:
               ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 1
-              WriteCapacityUnits: 1
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+        BillingMode: PAY_PER_REQUEST
+
+    InstructorsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.INSTRUCTORS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: EmailIndex
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+
+    CoursesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.COURSES_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: instructor_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: InstructorIndex
+            KeySchema:
+              - AttributeName: instructor_id
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+
+    BoardsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.BOARDS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    SessionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.SESSIONS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: course_id
+            AttributeType: S
+          - AttributeName: board_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: CourseIndex
+            KeySchema:
+              - AttributeName: course_id
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: BoardIndex
+            KeySchema:
+              - AttributeName: board_id
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+
+    ItemsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.ITEMS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: board_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: BoardIndex
+            KeySchema:
+              - AttributeName: board_id
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+
+    DocumentsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.DOCUMENTS_BUCKET}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedOrigins:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              AllowedHeaders:
+                - '*'
+              MaxAge: 3000
 
 custom:
   pythonRequirements:
